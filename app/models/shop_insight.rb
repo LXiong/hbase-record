@@ -1,6 +1,6 @@
 class ShopInsight < HbaseRecord::Base
 
-  # self.table_name "aaa"
+  # self.table_name = "aaa"
 
   # column_family :abc do
   #   qualifier :xx do
