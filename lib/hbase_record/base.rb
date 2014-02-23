@@ -8,11 +8,8 @@ module HbaseRecord
 
     include HbaseRecord::Schema::Table
 
-
     include HbaseRecord::Config
     include HbaseRecord::Retrieve
     include HbaseRecord::Table
-
-
   end
 end

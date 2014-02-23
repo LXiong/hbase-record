@@ -1,12 +1,11 @@
 module HbaseRecord
   module Table
     extend ActiveSupport::Concern
-    included do
 
+    included do
       class_attribute :table_name_overriden, :instance_writer => false
       self.table_name_overriden = nil
     end
-
 
     module ClassMethods
       def table_name
