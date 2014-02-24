@@ -3,11 +3,11 @@ class Test < HbaseRecord::Base
 
   # 7febbc4758b5e370
 
-  column :cf1 do
-    column :sec do
-      field :third, :string
-    end
-
+  column_family :cf1 do
+    # column :sec do
+    #   field :third, :string
+    # end
+    field :sec, :string
     field :two, :string
   end
 
@@ -16,11 +16,11 @@ class Test < HbaseRecord::Base
   #   field :two, :string
   # end
 
-  column :cf2 do
-    column :sec do
-      field :third, :string
-    end
-  end
+  # column_family :cf2 do
+  #   column :sec do
+  #     field :third, :string
+  #   end
+  # end
 
 end
 

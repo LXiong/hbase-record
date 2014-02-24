@@ -8,19 +8,31 @@ module HbaseRecord
       @tcell
     end
 
-    def method_missing(method, *args)
-      tcell.send(method, *args)
+    def value
+      string
+    end
+
+    def timestamp
+      tcell.timestamp
     end
 
     def string
-      value
+      tcell.value
     end
 
     def int
     end
 
     def short
-      value.unpack("s>*").first
+      tcell.value.unpack("s>*").first
+    end
+
+    def to_s
+      value.to_s
+    end
+
+    def inspect
+      value
     end
   end
 end

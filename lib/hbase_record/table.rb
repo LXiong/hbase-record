@@ -9,8 +9,6 @@ module HbaseRecord
 
     module ClassMethods
       def table_name
-        puts "xxx"
-        puts table_name_overriden
         @table_name ||= self.table_name_overriden || self.name.tableize
       end
 

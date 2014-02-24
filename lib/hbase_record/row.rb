@@ -11,7 +11,7 @@ module HbaseRecord
     end
 
     def columns
-      @columns ||= Columns.new( Hash[ @trow.columns.map{ |key, value| [key, Cell.new(value)] } ] )
+      @columns ||= Columns.new(Hash[@trow.columns.map{ |key, value| [key, Cell.new(value)] }])
     end
 
     def to_h
@@ -25,5 +25,17 @@ module HbaseRecord
     def method_missing(method, *args)
       columns.send(method, *args)
     end
+
+    # private
+
+    # def schema(key, value)
+    #   key.split(':').map(&:to_sym)
+    #   schema = column_families[key.first]
+    #   key.
+    # end
+
+    # def column_families
+    #   @klass.column_families
+    # end
   end
 end

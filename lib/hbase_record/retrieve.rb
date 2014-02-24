@@ -10,7 +10,6 @@ module HbaseRecord
 
     module ClassMethods
       def finder_scope
-        puts "xxx"
         Scope.new(self)
       end
     end

@@ -42,5 +42,7 @@ module HbaseRecord
     def cell
       @columns[nil]
     end
+    alias_method :inspect, :cell
+
   end
 end
