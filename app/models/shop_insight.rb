@@ -10,4 +10,13 @@ class ShopInsight < HbaseRecord::Base
   #   field :name
   # end
 
+  column_family :daily do
+    column /\d\d\d\d-\d\d-\d\d/ do
+      column :visitors do
+        column :in, :bigdecimal
+        column :out, :bigdecimal
+      end
+    end
+  end
+
 end

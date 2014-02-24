@@ -12,6 +12,18 @@ module HbaseRecord
         def column_families
           @column_families ||= {}
         end
+
+        def get_type(qualifier)
+          keys = qualifier.split(':').map(&:to_sym)
+
+          column = column_families[keys.shift]
+
+          keys.each do |key|
+            columns = column.columns
+            column = columns[key] || columns[columns.keys.select{|k| k.is_a? Regexp }.find{|k| k.match(keys.first)}]
+          end
+          column
+        end
       end
 
     end
