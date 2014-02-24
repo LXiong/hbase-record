@@ -4,9 +4,6 @@ class Test < HbaseRecord::Base
   # 7febbc4758b5e370
 
   column_family :cf1 do
-    # column :sec do
-    #   field :third, :string
-    # end
     field :sec, :string
     field :two, :string
   end

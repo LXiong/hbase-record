@@ -10,6 +10,7 @@ module HbaseRecord
 
     include HbaseRecord::Config
     include HbaseRecord::Retrieve
+    include HbaseRecord::Mutation
     include HbaseRecord::Table
   end
 end
