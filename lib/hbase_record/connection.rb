@@ -14,7 +14,7 @@ module HbaseRecord
       unless @transport
         puts "new transport!"
       end
-      @transport ||= ::Thrift::BufferedTransport.new(::Thrift::Socket.new(current_host, port, timeout))
+      @transport ||= ::Thrift::FramedTransport.new(::Thrift::Socket.new(current_host, port, timeout))
     end
 
     def open(options = {})
