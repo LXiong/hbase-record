@@ -11,12 +11,17 @@ class ShopInsight < HbaseRecord::Base
   # end
 
   column_family :daily do
-    column /\d\d\d\d-\d\d-\d\d/ do
-      column :visitors do
-        column :in, :bigdecimal
-        column :out, :bigdecimal
-      end
+    column /^\d\d\d\d-\d\d-\d\d$/ do
+      column :visitors_in, :bigdecimal
+      column :visitors_out, :bigdecimal
+      column :avg_dwell_time_in, :bigdecimal
+      column :capture_rate, :float
+      column :engaged_visitors, :bigdecimal
+      column :engagement_rate_5, :float
+      column :repeated_visitors, :bigdecimal
+      column :retention_rate, :float
     end
   end
+
 
 end

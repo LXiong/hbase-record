@@ -1,6 +1,11 @@
 class KonaSignal < HbaseRecord::Base
   self.table_name = "signals"
-
+  column_family :signal do
+    column :mac, :string
+    column :quality, :short
+    column :sensor_mac, :string
+    column :time, :long
+  end
   # 7febbc4758b5e370
 
   # column_family :abc do

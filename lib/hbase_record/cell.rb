@@ -1,7 +1,8 @@
 module HbaseRecord
   class Cell
-    def initialize(tcell)
+    def initialize(tcell, field)
       @tcell = tcell
+      @field = field
     end
 
     def tcell
@@ -9,7 +10,11 @@ module HbaseRecord
     end
 
     def value
-      string
+      if [:string, :bigdecimal, :int, :short, :float, :long].include? @field.try(:type)
+        send @field.type
+      else
+        tcell
+      end
     end
 
     def timestamp
@@ -25,6 +30,18 @@ module HbaseRecord
 
     def short
       tcell.value.unpack("s>*").first
+    end
+
+    def bigdecimal
+      tcell.value.unpack("l>*").first
+    end
+
+    def float
+      tcell.value.unpack("G*").first
+    end
+
+    def long
+      tcell.value.unpack("q>").first
     end
 
     def to_s

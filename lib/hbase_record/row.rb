@@ -11,7 +11,14 @@ module HbaseRecord
     end
 
     def columns
-      @columns ||= Columns.new(Hash[@trow.columns.map{ |key, value| [key, Cell.new(value)] }])
+      @columns ||= Columns.new(
+        Hash[@trow.columns.map{ |key, value|
+          [
+            key,
+            Cell.new(value, @klass.schema(key))
+          ]
+        }]
+      )
     end
 
     def to_h

@@ -26,15 +26,20 @@ module HbaseRecord
 
         mutations = @val.map(&recursive_traverse).flatten.map { |h|
           column = h[:key].join(":")
-          value = case get_type(column)
-          when :bigdecimal
-            h[:val].to_s
-          when :string
-            h[:val].to_s
-          when :short
-            [h[:val]].pack("n")
+          value = case schema(column).try(:type)
+            when :string
+              h[:val].to_s
+            when :bigdecimal
+              [h[:val]].pack("l>")
+            when :short
+              [h[:val]].pack("n")
+            when :float
+              [h[:val]].pack("G").force_encoding('utf-8')
+            when :long
+              [h[:val]].pack("q>")
           end
 
+          puts value
           Apache::Hadoop::Hbase::Thrift::Mutation.new(column: column, value: value)
         }
       end
