@@ -36,53 +36,42 @@ module HbaseRecord
     end
 
     def method_missing(method, *args)
-      @klass.connection.client.send(method, *args)
+      @klass.connection.send(method, *args)
     end
 
     private
 
     def evaluate
-      3.times do
-        begin
-          case self.scan_value.keys
-          when [:start_row]
-            scanner = scannerOpen(@klass.table_name, self.scan_value[:start_row], @column_values, {})
-          when [:start_row, :stop_row]
-            scanner = scannerOpenWithStop(@klass.table_name, self.scan_value[:start_row], self.scan_value[:stop_row], @column_values, {})
-          when [:prefix]
-            scanner = scannerOpen(@klass.table_name, self.scan_value[:prefix], @column_values, {})
-          end
+      case self.scan_value.keys
+      when [:start_row]
+        scanner = scannerOpen(@klass.table_name, self.scan_value[:start_row], @column_values, {})
+      when [:start_row, :stop_row]
+        scanner = scannerOpenWithStop(@klass.table_name, self.scan_value[:start_row], self.scan_value[:stop_row], @column_values, {})
+      when [:prefix]
+        scanner = scannerOpen(@klass.table_name, self.scan_value[:prefix], @column_values, {})
+      end
 
-          rows = []
-          if self.limit_value and self.limit_value > 0
-            loop do
-              break if self.limit_value <= 0
-              nb_rows = [256, self.limit_value].min
-              count = scannerGetList(scanner, nb_rows).each do |trow|
-                rows << Row.new(@klass, trow)
-              end.count
-              self.limit_value -= count
-              break if count < nb_rows
-            end
-          else
-            loop do
-              nb_rows = 256
-              count = scannerGetList(scanner, nb_rows).each do |trow|
-                rows << Row.new(@klass, trow)
-              end.count
-              break if count < nb_rows
-            end
-          end
-          return rows
-        rescue => e
-          if @klass.connection.send(:reconnect?, e)
-            @klass.connection.send(:reconnect!, e)
-          end
+      rows = []
+      if self.limit_value and self.limit_value > 0
+        loop do
+          break if self.limit_value <= 0
+          nb_rows = [256, self.limit_value].min
+          count = scannerGetList(scanner, nb_rows).each do |trow|
+            rows << Row.new(@klass, trow)
+          end.count
+          self.limit_value -= count
+          break if count < nb_rows
+        end
+      else
+        loop do
+          nb_rows = 256
+          count = scannerGetList(scanner, nb_rows).each do |trow|
+            rows << Row.new(@klass, trow)
+          end.count
+          break if count < nb_rows
         end
       end
-      puts '3 times tried... but failed.'
-      []
-
+      rows
     end
 
     def cloned_version_with(&block)
