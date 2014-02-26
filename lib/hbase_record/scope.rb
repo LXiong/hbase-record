@@ -55,7 +55,7 @@ module HbaseRecord
       if self.limit_value and self.limit_value > 0
         loop do
           break if self.limit_value <= 0
-          nb_rows = [1024, self.limit_value].min
+          nb_rows = [256, self.limit_value].min
           count = scannerGetList(scanner, nb_rows).each do |trow|
             rows << Row.new(@klass, trow)
           end.count
@@ -64,7 +64,7 @@ module HbaseRecord
         end
       else
         loop do
-          nb_rows = 1024
+          nb_rows = 256
           count = scannerGetList(scanner, nb_rows).each do |trow|
             rows << Row.new(@klass, trow)
           end.count
