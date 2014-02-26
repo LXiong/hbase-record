@@ -1,5 +1,5 @@
 module HbaseRecord
-  module Retrieve
+  module Finder
     extend ActiveSupport::Concern
 
     included do

@@ -9,7 +9,7 @@ module HbaseRecord
     include HbaseRecord::Schema::Table
 
     include HbaseRecord::Config
-    include HbaseRecord::Retrieve
+    include HbaseRecord::Finder
     include HbaseRecord::Mutation
     include HbaseRecord::Table
   end
