@@ -4,7 +4,7 @@ module HbaseRecord
 
     included do
       class << self
-        delegate :get, :limit, :scan, :to => :finder_scope
+        delegate :get, :limit, :scan, :columns, :to => :finder_scope
       end
     end
 

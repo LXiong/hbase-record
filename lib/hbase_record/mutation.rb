@@ -39,7 +39,6 @@ module HbaseRecord
               [h[:val]].pack("q>")
           end
 
-          puts value
           Apache::Hadoop::Hbase::Thrift::Mutation.new(column: column, value: value)
         }
       end

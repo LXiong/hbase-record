@@ -6,8 +6,7 @@ module HbaseRecord
     attr_accessor *MULTI_VALUE_METHODS.collect { |m| m + "_values" }
     attr_accessor *SINGLE_VALUE_METHODS.collect { |m| m + "_value" }
     attr_accessor :extra_finder_options
-    delegate :limit, :scan, :columns, :to => :finder_scope
-    delegate :inspect, :first, :last, :count, :to => :evaluate
+    delegate :inspect, :first, :last, :count, :to_a, :each, :to => :evaluate
 
     def initialize(klass)
       @klass = klass
@@ -17,7 +16,7 @@ module HbaseRecord
     end
 
     def get(id)
-      Row.new(@klass, getRowWithColumns(@klass.table_name, id.to_s, [], {}).first)
+      Row.new(@klass, getRowWithColumns(@klass.table_name, id.to_s, @column_values, {}).first)
     end
 
     def limit(limit)
@@ -53,24 +52,28 @@ module HbaseRecord
       end
 
       rows = []
-      if self.limit_value
-        self.limit_value.times do
-          if trow = scannerGet(scanner).first
+      if self.limit_value and self.limit_value > 0
+        loop do
+          break if self.limit_value <= 0
+          nb_rows = [1024, self.limit_value].min
+          count = scannerGetList(scanner, nb_rows).each do |trow|
             rows << Row.new(@klass, trow)
-          else
-            break
-          end
+          end.count
+          self.limit_value -= count
+          break if count < nb_rows
         end
       else
         loop do
-          if trow = scannerGet(scanner).first
+          nb_rows = 1024
+          count = scannerGetList(scanner, nb_rows).each do |trow|
             rows << Row.new(@klass, trow)
-          else
-            break
-          end
+          end.count
+          break if count < nb_rows
         end
       end
       rows
+    rescue => e
+      puts e
     end
 
     def cloned_version_with(&block)
