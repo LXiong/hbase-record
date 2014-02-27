@@ -11,6 +11,9 @@ require 'hbase_record/thrift/hbase_types'
 require 'hbase_record/thrift/hbase_constants'
 require 'hbase_record/thrift/hbase'
 require 'hbase_record/schema/table'
+require 'hbase_record/schema/column'
+require 'hbase_record/schema/field'
+require 'hbase_record/wrapper/base'
 
 
 module HbaseRecord
