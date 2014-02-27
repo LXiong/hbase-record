@@ -1,6 +1,7 @@
 require 'hbase_record/thrift/hbase_types'
 require 'hbase_record/thrift/hbase_constants'
 require 'hbase_record/thrift/hbase'
+require 'hbase_record/schema/table'
 
 module HbaseRecord
   class Base
