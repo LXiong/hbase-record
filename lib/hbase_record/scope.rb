@@ -16,7 +16,12 @@ module HbaseRecord
     end
 
     def get(id)
-      Row.new(@klass, getRowWithColumns(@klass.table_name, id.to_s, @column_values, {}).first)
+      trow = getRowWithColumns(@klass.table_name, id.to_s, @column_values, {}).first
+      if trow
+        Row.new(@klass, trow)
+      else
+        nil
+      end
     end
 
     def limit(limit)
