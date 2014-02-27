@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'hbase_record'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.date        = '2014-02-27'
   s.summary     = "Ruby ORM for Hbase!"
   s.description = ""
@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = ""
 
   s.add_dependency "thrift", '~> 0.9.1'
+  s.add_dependency "thin", '~> 1.6.0'
   s.add_dependency "activesupport", '~> 4.0.0'
 
 
