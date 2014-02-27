@@ -51,5 +51,9 @@ module HbaseRecord
     def inspect
       value
     end
+
+    def method_missing(method, *args)
+      value.send(method, *args)
+    end
   end
 end
