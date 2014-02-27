@@ -26,5 +26,15 @@ module HbaseRecord
     include HbaseRecord::Finder
     include HbaseRecord::Mutation
     include HbaseRecord::Table
+
+    class << self
+      def method_missing(name, *args, &block)
+        instance.send(name, *args, &block)
+      end
+
+      def instance
+        Thread.current[("htable_" + table_name).to_sym] ||= self.new
+      end
+    end
   end
 end
