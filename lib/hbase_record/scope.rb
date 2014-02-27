@@ -72,6 +72,10 @@ module HbaseRecord
         end
       end
       rows
+    rescue IOError => e
+      puts 'ioerrer exception!!'
+      puts e
+      []
     end
 
     def cloned_version_with(&block)
