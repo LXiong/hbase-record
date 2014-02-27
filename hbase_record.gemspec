@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = ""
 
   s.add_dependency "thrift", '~> 0.9.1'
-  s.add_dependency "activesupport", '~> 4.0.3'
+  s.add_dependency "activesupport", '~> 4.0.0'
 
 
   s.files       = `git ls-files -- lib/hbase_record`.split("\n")
