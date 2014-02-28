@@ -53,7 +53,7 @@ module HbaseRecord
       when [:start_row, :stop_row]
         scanner = scannerOpenWithStop(@klass.table_name, self.scan_value[:start_row], self.scan_value[:stop_row], @column_values, {})
       when [:prefix]
-        scanner = scannerOpen(@klass.table_name, self.scan_value[:prefix], @column_values, {})
+        scanner = scannerOpenWithPrefix(@klass.table_name, self.scan_value[:prefix], @column_values, {})
       end
 
       rows = []
