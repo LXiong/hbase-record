@@ -34,14 +34,14 @@ module HbaseRecord
             when :short
               [h[:val]].pack("n")
             when :float
-              [h[:val]].pack("G").force_encoding('utf-8')
+              [h[:val]].pack("G")
             when :long
               [h[:val]].pack("q>")
             when :boolean
               [h[:val]].pack("b")
           end
 
-          Apache::Hadoop::Hbase::Thrift::Mutation.new(column: column, value: value)
+          Apache::Hadoop::Hbase::Thrift::Mutation.new(column: column, value: value.force_encoding('utf-8'))
         }
       end
     end
