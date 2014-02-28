@@ -50,9 +50,6 @@ module HbaseRecord
         }
         hash.map(&recursive_traverse).flatten
       end
-
-
     end
-
   end
 end

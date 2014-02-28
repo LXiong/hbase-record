@@ -36,7 +36,19 @@ module HbaseRecord
     end
 
     def to_h
-      @columns
+      if cell
+        res = cell
+      else
+        res = Hash.new
+        @columns.each do |k,v|
+          if v.is_a? Columns
+            res[k] = v.to_h
+          else
+            res[k] = v
+          end
+        end
+      end
+      res
     end
 
     def cell
