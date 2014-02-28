@@ -10,7 +10,7 @@ module HbaseRecord
     end
 
     def value
-      if [:string, :bigdecimal, :int, :short, :float, :long].include? @field.try(:type)
+      if [:string, :bigdecimal, :short, :float, :long, :boolean].include? @field.try(:type)
         send @field.type
       else
         tcell
@@ -23,9 +23,6 @@ module HbaseRecord
 
     def string
       tcell.value
-    end
-
-    def int
     end
 
     def short

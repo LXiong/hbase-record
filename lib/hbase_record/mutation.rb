@@ -37,6 +37,8 @@ module HbaseRecord
               [h[:val]].pack("G").force_encoding('utf-8')
             when :long
               [h[:val]].pack("q>")
+            when :boolean
+              [h[:val]].pack("b")
           end
 
           Apache::Hadoop::Hbase::Thrift::Mutation.new(column: column, value: value)
