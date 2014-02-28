@@ -42,7 +42,7 @@ module HbaseRecord
     end
 
     def boolean
-      tcell.value.unpack("b").first
+      tcell.value.unpack("b").first == "1"
     end
 
     def to_s
