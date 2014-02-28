@@ -9,11 +9,11 @@ module HbaseRecord
       @tcell
     end
 
-    def value
+    def inspect
       if [:string, :bigdecimal, :short, :float, :long, :boolean].include? @field.try(:type)
         send @field.type
       else
-        tcell
+        string
       end
     end
 
@@ -46,15 +46,11 @@ module HbaseRecord
     end
 
     def to_s
-      value.to_s
-    end
-
-    def inspect
-      value
+      inspect.to_s
     end
 
     def method_missing(method, *args)
-      value.send(method, *args)
+      inspect.send(method, *args)
     end
   end
 end
