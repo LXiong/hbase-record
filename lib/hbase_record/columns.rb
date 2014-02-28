@@ -37,7 +37,7 @@ module HbaseRecord
 
     def to_h
       if cell
-        res = cell
+        res = cell.inspect
       else
         res = Hash.new
         @columns.each do |k,v|
