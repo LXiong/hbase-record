@@ -15,7 +15,7 @@ module HbaseRecord
         Hash[@trow.columns.map{ |key, value|
           [
             key,
-            Cell.new(value, @klass.schema(key))
+            Cell.new(value, @klass.schema(key)).value
           ]
         }]
       )
