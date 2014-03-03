@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'hbase_record'
-  s.version     = '0.0.20'
+  s.version     = '0.0.21'
   s.date        = '2014-02-27'
   s.summary     = "Ruby ORM for Hbase!"
   s.description = ""

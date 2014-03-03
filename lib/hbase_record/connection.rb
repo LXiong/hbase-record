@@ -97,6 +97,7 @@ module HbaseRecord
     end
 
     def reconnect!(e)
+      puts e
       close
       sleep 1
       @transport = nil
